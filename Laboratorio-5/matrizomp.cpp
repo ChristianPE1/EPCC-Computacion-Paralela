@@ -10,7 +10,10 @@ int main() {
     vector<int> x(N, 1); // Vector inicializado con 1
     vector<int> y(N, 0); // Resultado
 
-    #pragma omp parallel for
+    // Especificar el número de hilos
+    omp_set_num_threads(4);
+
+    #pragma omp parallel for shared(A, x, y) private(i, j) num_threads(4)
     for (int i = 0; i < N; ++i) {
         for (int j = 0; j < N; ++j) {
             #pragma omp atomic
